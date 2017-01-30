@@ -4,43 +4,33 @@ var app = express();
 app.get('/', (req, res) => {
     res.statusCode = 200;
     res.statusMessage = 'OK';
-    res.end('Hello Express.js');
+    res.end('Hello Express.js' + ку);
 });
 
-app.
+app.get('/hello', (req, res) => {
+    res.statusCode = 200;
+    res.statusMessage = 'OK';
+    res.end('Hello stranger !');
+});
 
-// var middleware_1 = function (req, res, next) {
-//     console.log('middleware 1');
-//     next();
-// };
-//
-// var middleware_2 = function (req, res, next) {
-//     console.log('middleware 2');
-//     next();
-// };
-//
-// var middleware_3 = function (req, res, next) {
-//     console.log('middleware 3');
-//     next();
-// };
-//
-// app.get('/book/:id', (req, res) => {
-//     let id = req.params.id;
-//
-//     res.json({id});
-// });
-//
-// app.all('/',
-//     middleware_1,
-//     middleware_2,
-//     (req, res) => {
-//     res.json({status: 'OK'})
-// });
-//
-//
-// app.all('*', (req, res) => {
-//    res.json({status: 'bad request'})
-// });
+app.get('/hello/:name', (req, res) => {
+    res.statusCode = 200;
+    res.statusMessage = 'OK';
+    res.end('Hello, ' + req.params.name);
+});
+
+app.all('/sub/*', (req, res) => {
+    res.end('You requested URI: ' + req.url); // Тут полный адрес ??? localhost итд ???
+});
+
+app.post('/post', (req, res) => {
+    if (req.body == undefined) {
+        res.statusCode = 404;
+        res.statusMessage = 'Not Found';
+    } else {
+        res.json(req.body);
+    }
+});
 
 app.listen(3000, () =>  {
     console.log('run');
